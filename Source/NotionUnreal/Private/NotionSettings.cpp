@@ -24,19 +24,25 @@ void UNotionSettings::RetrieveDatabase()
 
     httpRequest->AppendToHeader(TEXT("Notion-Version"), TEXT("2022-06-28"));
 
-    UE_LOG(LogTemp, Warning, TEXT("Retrieving Notion Database..."));
+    UE_LOG(LogTemp, Display, TEXT("Retrieving Notion Database..."));
 
     //UE_LOG(LogTemp, Warning, TEXT("Retrieving Notion Database... with API Key %s"), *NotionSettings->notionAPIKey);
 
     // Callback will execute when the HTTP call is complete
     httpRequest->OnProcessRequestComplete().BindUObject(this, &UNotionSettings::OnDatabaseRetrieved);
 
-    httpRequest->SetTimeout(20);
+    httpRequest->SetTimeout(60);
     httpRequest->ProcessRequest();
 }
 
 void UNotionSettings::OnDatabaseRetrieved(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
+    if (!Response.IsValid())
+    {
+        return;
+    }
+
+
     TSharedPtr<FJsonObject> JsonObject;
 
     // Create a reader pointer to read the json data
@@ -45,7 +51,7 @@ void UNotionSettings::OnDatabaseRetrieved(FHttpRequestPtr Request, FHttpResponse
     // Deserialize the json data given Reader and the actual object to deserialize
     if (FJsonSerializer::Deserialize(Reader, JsonObject)) {
 
-        UE_LOG(LogTemp, Warning, TEXT("Retrieving Notion Database... with content content %s"), *Response->GetContentAsString());
+        UE_LOG(LogTemp, Display, TEXT("Retrieving Notion Database... with content content %s"), *Response->GetContentAsString());
 
         if (JsonObject->GetArrayField("title").Num() > 0) {
             DatabaseName = JsonObject->GetArrayField("title")[0]->AsObject()->GetStringField("plain_text");
@@ -232,12 +238,17 @@ void UNotionSettings::RetrieveUsers()
     // Callback will execute when the HTTP call is complete
     httpRequest->OnProcessRequestComplete().BindUObject(this, &UNotionSettings::OnUsersRetrieved);
 
-    httpRequest->SetTimeout(20);
+    httpRequest->SetTimeout(60);
     httpRequest->ProcessRequest();
 }
 
 void UNotionSettings::OnUsersRetrieved(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
+    if (!Response.IsValid())
+    {
+        return;
+    }
+
     TSharedPtr<FJsonObject> JsonObject;
 
     // Create a reader pointer to read the json data
