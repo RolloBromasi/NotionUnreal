@@ -1,0 +1,8 @@
+{
+	"BuildId": "dd0dcc8d-b990-4e61-8227-47a9d5464a57",
+	"Modules": 
+	{
+		"NotionUnreal": "UnrealEditor-NotionUnreal.dll",
+		"NotionUnrealEditor": "UnrealEditor-NotionUnrealEditor.dll"
+	}
+}

@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-NotionUnrealEditor.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Cadomus_SDK\Caen1936\Plugins\NotionUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\NotionUnrealEditor\Module.NotionUnrealEditor.cpp.obj"
+"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Default.rc2.res"
+/OUT:"C:\Cadomus_SDK\Caen1936\Plugins\NotionUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\NotionUnrealEditor\UnrealEditor-NotionUnrealEditor.lib"
